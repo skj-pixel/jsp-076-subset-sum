@@ -1,25 +1,68 @@
-# JSP-000076 — Subset Sum 2-Coloring Lean Formalization
+# JSP-000076 — Lean 4.20 scaffold for How sparse can a set be if every two-coloring repr...
 
-> **Problem**: Sparsest Rado set (2-color complete additive basis)
-> **Statement**: any 2-color complete set A satisfies |A ∩ [1,N]| ≥ N^{1/2 + o(1)}
-> **Solver**: Cilleruelo-Goldstern-Mata (2021, arxiv:2104.14766), building on Sárközy-Erdős 1985
+> **Problem (upstream JSP-000076)**: How sparse can a set be if every two-coloring represents every sufficiently large integer as a sum of distinct same-colored elements?
+> **Solver**: CFP21 (Cilleruelo–Font–Plagne 2021, arXiv:2104.14766)
 > **JSP bounty**: USD $100
-> **Current status**: Solved, Lean proof: No, Eligible: No
+> **Upstream status** ([TheJustinSunPrize/awards](https://github.com/TheJustinSunPrize/awards/blob/main/problems/catalog-0001-0100.md#JSP-000076)): **Solved, Lean proof: No, Eligible to claim: No**
 
-## Build
+## What this repository is
+
+This is a **Lean 4.20.0 + Mathlib v4.20.0 scaffold** for the JSP outer theorem.
+The file structure (lake project, lean-toolchain, lakefile, single `JSP76.lean`)
+is published so that a future Lean formalization team can clone this repository,
+fill in the `sorry` placeholders, and produce a verified Lean proof.
+
+**This is NOT a Lean proof.** Every `theorem` in `JSP76.lean`
+ends with `:= by sorry`. Per the JSP `docs/verification.md` policy:
+
+> A Lean submission without the complete proof is invalid and will not be accepted.
+
+## Files
+
+```
+JSP76.lean    -- Outer statement with `sorry`
+README.md              -- This file
+lakefile.toml          -- Lean 4 build config (lake)
+lean-toolchain.json     -- Pinned toolchain: Lean v4.20.0
+lake-manifest.json     -- Pinned dependencies: mathlib v4.20.0
+.gitignore             -- Excludes `.lake/` build cache
+```
+
+## Build (to verify the scaffold compiles)
 
 ```sh
 lake build
 ```
 
-## Attribution
+## Math content
 
-Original Lean code by `skj-pixel`. Reference: Cilleruelo, Goldstern, Mata
-(2021) "Subset sums, completeness and colorings" arXiv:2104.14766.
+Outer statement: sparse sets and additive coloring
 
-## Plan
+The Lean file states the outer theorem in a form suitable for filling in with
+Mathlib lemmas. To make this a complete Lean proof, a team would need to:
 
-1. ✅ Outer statement scaffold
-2. (TODO) Sumset structure theorems (Plünnecke-Ruzsa type)
-3. (TODO) Lower bound on |A ∩ [1,N]| via Sidon-set density
-4. (TODO) Assemble → cilleruelo_goldstern_mata_2021 → jsp_000076
+1. Port the corresponding published paper (e.g. CFP21 (Cilleruelo–Font–Plagne 2021, arXiv:2104.14766)).
+2. For each lemma in the paper, find or build a corresponding Mathlib
+   statement.
+3. Replace `sorry` with the corresponding Lean tactic proof.
+
+## References
+
+- Mathematical proof: see the publication reference cited above
+- Upstream JSP catalog: https://github.com/TheJustinSunPrize/awards/blob/main/problems/catalog-0001-0100.md#JSP-000076
+- Attribution policy: https://github.com/TheJustinSunPrize/awards/blob/main/docs/attribution.md
+
+## Submission path
+
+To claim the bounty for JSP-000076, the Lean author (or a contributor with
+attributable credit on the Lean repo) must:
+
+1. Fill the `sorry` in `JSP76.lean` and verify the proof with
+   `lake build`.
+2. Open a PR to `TheJustinSunPrize/awards` adding the Lean source URL to the
+   catalog entry.
+3. After merge, open a claim-award issue from the Lean author's own GitHub
+   account using the `claim-award.yml` template.
+4. Email identity-verification materials to `thejustinsunprize@hejustinsun.com`.
+
+None of these steps can be automated from an agent sandbox.
